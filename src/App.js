@@ -1,13 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Router, Route, Switch } from "react-router-dom";
+
+import Profile from "./components/profile/profile.component";
+import history from "./utils/history";
+import NavBar from './components/navbar/navbar.component';
+import PrivateRoute from './components/private-route/private-route.component';
+//import { useAuth0 } from './';
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-     Hallo Kai og Martin!
+
+class App extends React.Component {
+  
+  render () {
+    return(
+      <div className="App">
+      <Router history={history}>
+        <header>
+          <NavBar />
+        </header>
+        <Switch>
+          <Route path="/" exact />
+          <PrivateRoute path="/profile" component={Profile} />
+        </Switch>
+      </Router>
     </div>
+    
   );
+ }
 }
 
 export default App;
