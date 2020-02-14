@@ -1,30 +1,46 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React from "react";
+import { Router, Route, Switch } from "react-router-dom";
+
 import { Home } from "./components/Home/Home";
 import { Usage } from "./components/Home/Usage";
 import { Dens } from "./components/Home/Dens";
 import { NoMatch } from "./components/Home/NoMatch";
 import { Layout } from "./components/Layout.component";
-import { NavigationBar } from "./components/header/NavigationBar.component";
+import NavigationBar from "./components/Header/NavigationBar.component";
+import Profile from "./components/Profile/Profile.component";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute.component";
+
+import history from "./utils/history";
+
+import { useAuth0 } from "./react-auth0-spa";
 
 import "./App.css";
 
-class App extends Component {
+class App extends React.Component {
+  /* const { loading } = useAuth0();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  } */
+
   render() {
     return (
-      <React.Fragment>
-        <NavigationBar />
-        <Layout>
-          <Router>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/dens" component={Dens} />
-              <Route path="/Usage" component={Usage} />
-              <Route component={NoMatch} />
-            </Switch>
+      <div className="App">
+        <React.Fragment>
+          <Router history={history}>
+            <NavigationBar />
+            <Layout>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <PrivateRoute path="/dens" component={Dens} />
+                <PrivateRoute path="/usage" component={Usage} />
+                <PrivateRoute path="/profile" component={Profile}/>
+                <Route component={NoMatch} />
+              </Switch>
+            </Layout>
           </Router>
-        </Layout>
-      </React.Fragment>
+        </React.Fragment>
+      </div>
     );
   }
 }
