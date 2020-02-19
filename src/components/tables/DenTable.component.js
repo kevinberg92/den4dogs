@@ -28,13 +28,17 @@ class DenTable extends Component {
     }
     return (
       <div>
-        <h1 id="title">{this.props.title}</h1>
-        <table id="students">
-          <tbody>
-            <tr>{this.renderTableHeader()}</tr>
-            {this.renderTableData()}
-          </tbody>
-        </table>
+        <div>
+          <h1 id="title">{this.props.title}</h1>
+        </div>
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+          <table id="students">
+            <tbody>
+              <tr>{this.renderTableHeader()}</tr>
+              {this.renderTableData()}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

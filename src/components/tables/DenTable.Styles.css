@@ -36,3 +36,9 @@
   background-color: #d8232a;
   color: white;
 }
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 600px;
+  overflow: auto;
+}

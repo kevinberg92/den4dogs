@@ -1,9 +1,38 @@
 import React from "react";
+import DenTable from "../tables/DenTable.component";
+import { Container, Row } from "react-bootstrap";
 
-export const Usage = () => (
-  <div>
-    <h2>Hello Usage</h2>
-    <p>HAHAHAHAHAHAHAHAHAHAHAHAH TEIT</p>
-    <p>HAHAHAHAHAHAHAHAHAHAHAHAH TEIT2</p>
-  </div>
-);
+export default class Usage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      usage: null,
+      loading: true
+    };
+  }
+
+  async componentDidMount() {
+    const url = "http://localhost:3000/api/den_usage";
+    const response = await fetch(url);
+    const data = await response.json();
+    this.setState({
+      usage: data.data,
+      loading: false
+    });
+  }
+  render() {
+    if (this.state.loading) {
+      return <div>Loading....</div>;
+    }
+    return (
+      <div>
+        <Container>
+          <Row>
+            <DenTable dens={this.state.usage} title={"All usage"} />
+          </Row>
+        </Container>
+      </div>
+    );
+  }
+}

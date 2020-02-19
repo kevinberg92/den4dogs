@@ -1,13 +1,14 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 
-import { Home } from "./components/Home/Home";
-import { Usage } from "./components/Home/Usage";
-import { Dens } from "./components/Home/Dens";
+import Home from "./components/Home/Home";
+import Usage from "./components/Home/Usage";
+import Dens from "./components/Home/Dens";
 import { NoMatch } from "./components/Home/NoMatch";
 import { Layout } from "./components/Layout.component";
+import Users from "./components/Home/Users";
 
-import NavigationBar from "./components/Header/NavigationBar.component";
+import NavigationBar from "./components/header/NavigationBar.component";
 import Profile from "./components/Profile/Profile.component";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.component";
 
@@ -36,6 +37,7 @@ class App extends React.Component {
                 <PrivateRoute path="/dens" component={Dens} />
                 <PrivateRoute path="/usage" component={Usage} />
                 <PrivateRoute path="/profile" component={Profile} />
+                <PrivateRoute path="/users" component={Users} />
                 <Route component={NoMatch} />
               </Switch>
             </Layout>
