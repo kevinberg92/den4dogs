@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Home } from "./components/Home/Home";
+import Home from "./components/Home/Home";
 import { Usage } from "./components/Home/Usage";
 import { Dens } from "./components/Home/Dens";
 import { NoMatch } from "./components/Home/NoMatch";
 import { Layout } from "./components/Layout.component";
-import { NavigationBar } from "./components/header/NavigationBar.component";
-
+import NavigationBar from "./components/header/NavigationBar.component";
 import "./App.css";
 
 class App extends Component {

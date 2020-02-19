@@ -17,7 +17,7 @@ const Styles = styled.div`
   }
 `;
 
-export const NavigationBar = () => (
+const NavigationBar = () => (
   <Styles>
     <Navbar expand="lg" className="flex-column align-items-center">
       <Navbar.Brand href="/">
@@ -48,3 +48,5 @@ export const NavigationBar = () => (
     </Navbar>
   </Styles>
 );
+
+export default NavigationBar;
