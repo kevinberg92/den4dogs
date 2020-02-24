@@ -13,7 +13,7 @@ class DenTable extends Component {
     return Array.from(this.props.dens).map((dens, index) => {
       let col = Object.keys(dens);
       return (
-        <tr key={dens.Location}>
+        <tr key={index}>
           {col.map((val, index) => {
             return <td key={index}>{dens[col[index]]}</td>;
           })}
@@ -31,7 +31,7 @@ class DenTable extends Component {
         <div>
           <h1 id="title">{this.props.title}</h1>
         </div>
-        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <div className="table-wrapper-scroll-y my-custom-scrollbar">
           <table id="students">
             <tbody>
               <tr>{this.renderTableHeader()}</tr>
