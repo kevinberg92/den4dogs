@@ -7,6 +7,7 @@ import Dens from "./components/Home/Dens";
 import { NoMatch } from "./components/Home/NoMatch";
 import { Layout } from "./components/Layout.component";
 import Users from "./components/Home/Users";
+import NewDenForm from "./components/newDen/NewDenPage";
 
 import NavigationBar from "./components/header/NavigationBar.component";
 import Profile from "./components/Profile/Profile.component";
@@ -38,6 +39,7 @@ class App extends React.Component {
                 <PrivateRoute path="/usage" component={Usage} />
                 <PrivateRoute path="/profile" component={Profile} />
                 <PrivateRoute path="/users" component={Users} />
+                <PrivateRoute path="/newDen" component={NewDenForm} />
                 <Route component={NoMatch} />
               </Switch>
             </Layout>

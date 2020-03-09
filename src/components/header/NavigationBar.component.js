@@ -51,6 +51,9 @@ const NavigationBar = () => {
                 <Nav.Link href="/users">Users</Nav.Link>
               </Nav.Item>
               <Nav.Item>
+                <Nav.Link href="/newDen">New</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
                 <Nav.Link href="/profile">Profile</Nav.Link>
               </Nav.Item>
               {!isAuthenticated && (

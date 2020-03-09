@@ -1,6 +1,5 @@
 import React from "react";
 import DenTable from "../tables/DenTable.component";
-import Chart from "../chart/Chart.component";
 import { Container, Row } from "react-bootstrap";
 
 export default class Home extends React.Component {
