@@ -24,6 +24,9 @@ import PetsIcon from '@material-ui/icons/Pets';
 import AddIcon from '@material-ui/icons/Add';
 import BusinessIcon from '@material-ui/icons/Business';
 import ReplayIcon from '@material-ui/icons/Replay';
+import Theme from '../../ThemeConfig/ColorScheme.component';
+import { ThemeProvider } from 'react-bootstrap';
+import { Router, Route, Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -93,6 +96,33 @@ export default function MenuDrawer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const icons = [<HomeIcon />, <PeopleIcon />, <BusinessIcon />, <PetsIcon />, <AddIcon />];
+  const menuItems = [
+        {
+            title: "Home",
+            route: "/",
+            icon: <HomeIcon />
+        },
+        {
+            title: "Users",
+            route: "/users",
+            icon: <PeopleIcon />
+        },
+        {
+            title: "Dens",
+            route: "/dens",
+            icon: <BusinessIcon />
+        },
+        {
+            title: "Usage",
+            route: "/usage",
+            icon: <PetsIcon />
+        },
+        {
+            title: "Register new",
+            route: "/newDen",
+            icon: <AddIcon />
+        },
+  ];
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -106,11 +136,14 @@ export default function MenuDrawer() {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
+        style={{ background: "#EB301F"}}
+        color="primary"
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
       >
+          
         <Toolbar>
           <IconButton
             color="inherit"
@@ -142,16 +175,19 @@ export default function MenuDrawer() {
         }}
       >
         <div className={classes.toolbar}>
+          <Typography variant="h6" noWrap>
+            Den 4 Dogs
+          </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
         <Divider />
         <List>
-          {['Home', 'Users', 'Dens', 'Usage', 'Register new'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{icons[index]}</ListItemIcon>
-              <ListItemText primary={text} />
+          {menuItems.map((item, index) => (
+            <ListItem button key={index} component={Link} to={item.route}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.title} />
             </ListItem>
           ))}
         </List>
