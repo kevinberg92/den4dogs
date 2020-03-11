@@ -1,6 +1,7 @@
 import React from "react";
 import DenTable from "../tables/DenTable.component";
 import { Container, Row } from "react-bootstrap";
+import MaterialTable from "../tables/MaterialTable.component";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -43,9 +44,22 @@ export default class Home extends React.Component {
       <div>
         <Container>
           <Row>
-            <DenTable dens={this.state.densMost} title={"Most used dens"} />
-            <DenTable dens={this.state.densLeast} title={"Least used dens"} />
-            <DenTable dens={this.state.oneHour} title={"Use of one hour"} />
+            <MaterialTable
+              dens={this.state.densMost}
+              title={"Most used dens"}
+            />
+            <MaterialTable
+              dens={this.state.densLeast}
+              title={"Least used dens"}
+            />
+            <MaterialTable
+              dens={this.state.oneHour}
+              title={"Use of one hour"}
+            />
+            <MaterialTable
+              dens={this.state.oneHour}
+              title={"Use of one hour"}
+            />
           </Row>
         </Container>
       </div>
