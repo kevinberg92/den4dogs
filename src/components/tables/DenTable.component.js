@@ -31,8 +31,8 @@ class DenTable extends Component {
         <div>
           <h1 id="title">{this.props.title}</h1>
         </div>
-        <div className="table-wrapper-scroll-y my-custom-scrollbar">
-          <table id="students">
+        <div>
+          <table>
             <tbody>
               <tr>{this.renderTableHeader()}</tr>
               {this.renderTableData()}

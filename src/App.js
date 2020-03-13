@@ -12,7 +12,7 @@ import NewDenForm from "./components/newDen/NewDenPage";
 import NavigationBar from "./components/header/NavigationBar.component";
 import Profile from "./components/Profile/Profile.component";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.component";
-import MenuDrawer from "./components/SideMenu/SideMenu.component"
+import MenuDrawer from "./components/SideMenu/SideMenu.component";
 
 import history from "./utils/history";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import DenTable from "../tables/DenTable.component";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import MaterialTable from "../tables/MaterialTable.component";
 
 export default class Home extends React.Component {
@@ -42,26 +42,21 @@ export default class Home extends React.Component {
     }
     return (
       <div>
-        <Container>
-          <Row>
+        <Row>
+          <Col>
             <MaterialTable
               dens={this.state.densMost}
               title={"Most used dens"}
             />
+          </Col>
+          <Col>
             <MaterialTable
               dens={this.state.densLeast}
               title={"Least used dens"}
             />
-            <MaterialTable
-              dens={this.state.oneHour}
-              title={"Use of one hour"}
-            />
-            <MaterialTable
-              dens={this.state.oneHour}
-              title={"Use of one hour"}
-            />
-          </Row>
-        </Container>
+          </Col>
+        </Row>
+        <MaterialTable dens={this.state.oneHour} title={"Use of one hour"} />
       </div>
     );
   }

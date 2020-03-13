@@ -28,11 +28,12 @@ export default class Users extends React.Component {
         <div>
           <Container>
             <Tabs
+              className="box3"
               value={this.state.value}
-              indicatorColor="primary"
-              textColor="primary"
+              indicatorColor="secondary"
+              textColor="secondary"
               onChange={this.handleChange}
-              aria-label="disabled tabs example"
+              aria-label="tabs"
             >
               <Tab label="Register den location" />
               <Tab label="Add new den" />
@@ -46,11 +47,12 @@ export default class Users extends React.Component {
         <div>
           <Container>
             <Tabs
+              className="box3"
               value={this.state.value}
-              indicatorColor="primary"
-              textColor="primary"
+              indicatorColor="secondary"
+              textColor="secondary"
               onChange={this.handleChange}
-              aria-label="disabled tabs example"
+              aria-label="tabs"
             >
               <Tab label="Register den location" />
               <Tab label="Add new den" />

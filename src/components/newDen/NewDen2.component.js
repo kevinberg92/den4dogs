@@ -104,7 +104,7 @@ class NewDen2 extends Component {
           />
         </Form.Group>
         <ToastContainer autoClose={4000} />
-        <Button variant="primary" type="submit">
+        <Button variant="success" type="submit">
           Submit
         </Button>
       </Form>

@@ -1,6 +1,9 @@
-.container {
-  max-height: 600px;
+.box {
+  margin-top: 15%;
 }
-.header {
-  color: #d8232a;
+.box2 {
+  margin-top: 50px;
+}
+.box3 {
+  margin-top: 7%;
 }

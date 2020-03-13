@@ -30,7 +30,14 @@ class MaterialTable extends Component {
   renderTableHeader() {
     let header = Object.keys(this.props.dens[0]);
     return header.map((key, index) => {
-      return <TableCell key={index}>{key.toUpperCase()}</TableCell>;
+      return (
+        <TableCell
+          key={index}
+          style={{ backgroundColor: "#eb3020", color: "white" }}
+        >
+          {key.toUpperCase()}
+        </TableCell>
+      );
     });
   }
 
@@ -53,14 +60,14 @@ class MaterialTable extends Component {
     }
     if (this.props.dens.length <= 10) {
       return (
-        <div>
+        <div className="box">
           <div>
             <h1 id="title">{this.props.title}</h1>
           </div>
           <div>
             <TableContainer className="container">
               <Table stickyHeader aria-label="sticky table">
-                <TableHead className="header">
+                <TableHead>
                   <TableRow>{this.renderTableHeader()}</TableRow>
                 </TableHead>
                 <TableBody>{this.renderTableData()}</TableBody>
@@ -71,7 +78,7 @@ class MaterialTable extends Component {
       );
     }
     return (
-      <div>
+      <div className="box2">
         <div>
           <h1 id="title">{this.props.title}</h1>
         </div>
