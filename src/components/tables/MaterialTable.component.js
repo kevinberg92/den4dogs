@@ -33,7 +33,7 @@ class MaterialTable extends Component {
       return (
         <TableCell
           key={index}
-          style={{ backgroundColor: "#eb3020", color: "white" }}
+          style={{ backgroundColor: "#eb301e", color: "white" }}
         >
           {key.toUpperCase()}
         </TableCell>
@@ -83,9 +83,9 @@ class MaterialTable extends Component {
           <h1 id="title">{this.props.title}</h1>
         </div>
         <div>
-          <TableContainer className="container">
+          <TableContainer>
             <Table stickyHeader aria-label="sticky table">
-              <TableHead className="header">
+              <TableHead>
                 <TableRow>{this.renderTableHeader()}</TableRow>
               </TableHead>
               <TableBody>
