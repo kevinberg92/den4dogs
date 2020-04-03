@@ -1,5 +1,6 @@
 import React from "react";
 import DenTable from "../tables/DenTable.component";
+import MapComponent from "../map/map.component"
 import { Container, Row, Col } from "react-bootstrap";
 import MaterialTable from "../tables/MaterialTable.component";
 
@@ -56,7 +57,14 @@ export default class Home extends React.Component {
             />
           </Col>
         </Row>
-        <MaterialTable dens={this.state.oneHour} title={"Use of one hour"} />
+        <Row>
+          <Col>
+            <MaterialTable dens={this.state.oneHour} title={"Use of one hour"} />
+          </Col>
+          <Col>
+            <MapComponent />
+          </Col>
+        </Row>
       </div>
     );
   }
