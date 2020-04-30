@@ -1,5 +1,5 @@
 import React from "react";
-import DenTable from "../tables/DenTable.component";
+import NewTable from "../tables/NewTable.component";
 import { Container, Row } from "react-bootstrap";
 
 export default class Users extends React.Component {
@@ -8,7 +8,7 @@ export default class Users extends React.Component {
 
     this.state = {
       users: null,
-      loading: true
+      loading: true,
     };
   }
 
@@ -18,7 +18,7 @@ export default class Users extends React.Component {
     const data = await response.json();
     this.setState({
       users: data.data,
-      loading: false
+      loading: false,
     });
   }
   render() {
@@ -29,7 +29,7 @@ export default class Users extends React.Component {
       <div>
         <Container>
           <Row>
-            <DenTable dens={this.state.users} title={"All users"} />
+            <NewTable dens={this.state.users} title={"All users"} />
           </Row>
         </Container>
       </div>

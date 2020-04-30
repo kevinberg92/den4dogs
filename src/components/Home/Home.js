@@ -1,8 +1,7 @@
 import React from "react";
-import DenTable from "../tables/DenTable.component";
-import MapComponent from "../map/map.component"
+import MapComponent from "../map/map.component";
 import { Container, Row, Col } from "react-bootstrap";
-import MaterialTable from "../tables/MaterialTable.component";
+import NewTable from "../tables/NewTable.component";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -13,7 +12,8 @@ export default class Home extends React.Component {
       densLeast: null,
       oneHour: null,
       test: null,
-      loading: true
+      loading: true,
+      oneTest: null,
     };
   }
 
@@ -21,21 +21,25 @@ export default class Home extends React.Component {
     const url = "http://localhost:3000/api/dens/usage";
     const response = await fetch(url);
     const data = await response.json();
+
     const url2 = "http://localhost:3000/api/dens/usage";
     const response2 = await fetch(url2);
     const data2 = await response2.json();
+
     this.setState({
       densMost: Array.from(data.data).slice(0, 10),
-      densLeast: Array.from(data.data)
-        .reverse()
-        .slice(0, 10),
-      oneHour: data2.data,
-      test: Array.from(data.data).map(item => {
+      densLeast: Array.from(data.data).reverse().slice(0, 10),
+      oneHour: Array.from(data2.data),
+      oneTest: Array.from(data.data),
+      test: Array.from(data.data).map((item) => {
         var k = Object.keys(item);
         return item[k[3]];
       }),
-      loading: false
+      loading: false,
     });
+    console.log(data2.data);
+    console.log("data 1");
+    console.log(data.data);
   }
   render() {
     if (this.state.loading) {
@@ -45,21 +49,16 @@ export default class Home extends React.Component {
       <div>
         <Row>
           <Col>
-            <MaterialTable
-              dens={this.state.densMost}
-              title={"Most used dens"}
-            />
+            <NewTable dens={this.state.densMost} title={"Most used dens"} />
           </Col>
           <Col>
-            <MaterialTable
-              dens={this.state.densLeast}
-              title={"Least used dens"}
-            />
+            <NewTable dens={this.state.densLeast} title={"Least used dens"} />
           </Col>
         </Row>
         <Row>
           <Col>
-            <MaterialTable dens={this.state.oneHour} title={"Use of one hour"} />
+            <NewTable dens={this.state.oneTest} title={"Most used dens!"} />
+            <NewTable dens={this.state.oneHour} title={"Use of one hour"} />
           </Col>
           <Col>
             <MapComponent />
