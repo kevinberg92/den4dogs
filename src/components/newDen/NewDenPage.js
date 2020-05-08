@@ -4,6 +4,7 @@ import NewDen from "./NewDen.component";
 import { Container } from "react-bootstrap";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import './NewDenPage.css';
 
 export default class Users extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ export default class Users extends React.Component {
   render() {
     if (this.state.value === 0) {
       return (
-        <div>
+        <div id="container">
           <Container>
             <Tabs
               className="box3"

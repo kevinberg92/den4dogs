@@ -15,18 +15,14 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-
 import HomeIcon from "@material-ui/icons/Home";
 import PeopleIcon from "@material-ui/icons/People";
 import PetsIcon from "@material-ui/icons/Pets";
 import AddIcon from "@material-ui/icons/Add";
 import BusinessIcon from "@material-ui/icons/Business";
 import ReplayIcon from "@material-ui/icons/Replay";
-import Theme from "../../ThemeConfig/ColorScheme.component";
-import { ThemeProvider } from "react-bootstrap";
 import { Router, Route, Link } from "react-router-dom";
+import './sideMenu.css';
 
 const drawerWidth = 240;
 
@@ -119,11 +115,6 @@ export default function MenuDrawer() {
       icon: <BusinessIcon />
     },
     {
-      title: "Usage",
-      route: "/usage",
-      icon: <PetsIcon />
-    },
-    {
       title: "Register new",
       route: "/newDen",
       icon: <AddIcon />
@@ -139,7 +130,7 @@ export default function MenuDrawer() {
   };
 
   return (
-    <div className={classes.root}>
+    <div>
       <CssBaseline />
       <AppBar
         style={{ background: "#EB301F" }}
@@ -166,7 +157,7 @@ export default function MenuDrawer() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
+      <Drawer 
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -199,7 +190,7 @@ export default function MenuDrawer() {
           </IconButton>
         </div>
         <Divider />
-        <List>
+        <List >
           {menuItems.map((item, index) => (
             <ListItem button key={index} component={Link} to={item.route}>
               <ListItemIcon>{item.icon}</ListItemIcon>

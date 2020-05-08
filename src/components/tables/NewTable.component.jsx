@@ -9,18 +9,9 @@ class NewTable extends Component {
     }
     return (
       <MaterialTable
+      style={{ width: "100%" }}
         title={this.props.title}
-        columns={[
-          { title: "Location", field: "Location" },
-          { title: "Address", field: "Address" },
-          { title: "Country", field: "Country" },
-          {
-            title: "Count",
-            field: "Count",
-            type: "numeric",
-          },
-          { title: "Status", field: "Status" },
-        ]}
+        columns={this.props.columns}
         data={this.props.dens}
       />
     );
@@ -28,3 +19,5 @@ class NewTable extends Component {
 }
 
 export default NewTable;
+
+

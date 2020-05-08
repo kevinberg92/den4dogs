@@ -1,0 +1,5 @@
+@media (max-width: 451px){
+    .menu-bar{
+        visibility: hidden;
+    }
+}

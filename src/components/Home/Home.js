@@ -2,6 +2,9 @@ import React from "react";
 import MapComponent from "../map/map.component";
 import { Container, Row, Col } from "react-bootstrap";
 import NewTable from "../tables/NewTable.component";
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import { flexbox } from '@material-ui/system';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -14,6 +17,17 @@ export default class Home extends React.Component {
       test: null,
       loading: true,
       oneTest: null,
+      tableColumns: [
+        { title: "Location", field: "Location" },
+        { title: "Address", field: "Address" },
+        { title: "Country", field: "Country" },
+        {
+          title: "Count",
+          field: "Count",
+          type: "numeric",
+        },
+        { title: "Status", field: "Status"},
+     ]
     };
   }
 
@@ -46,25 +60,37 @@ export default class Home extends React.Component {
       return <div>Loading....</div>;
     }
     return (
-      <div>
-        <Row>
-          <Col>
-            <NewTable dens={this.state.densMost} title={"Most used dens"} />
-          </Col>
-          <Col>
-            <NewTable dens={this.state.densLeast} title={"Least used dens"} />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <NewTable dens={this.state.oneTest} title={"Most used dens!"} />
-            <NewTable dens={this.state.oneHour} title={"Use of one hour"} />
-          </Col>
-          <Col>
-            <MapComponent />
-          </Col>
-        </Row>
-      </div>
+      
+        <Grid display="flex" container spacing={3} style={{
+          marginTop: "100px",
+          width: "100%",
+          marginLeft: "2rem",
+          marginRight: "1rem",
+          width: "100%"
+         }}>
+
+          <Grid item sm={12} md={6}>
+            <NewTable columns={this.state.tableColumns} dens={this.state.densMost} title={"Most used dens"}/>
+          </Grid>
+
+          <Grid item sm={12} md={6}>
+            <NewTable columns={this.state.tableColumns} dens={this.state.densLeast} title={"Least used dens"} />  
+          </Grid>
+
+          <Grid item sm={12} md={6}>
+            <NewTable columns={this.state.tableColumns} dens={this.state.oneHour} title={"Use of one hour"} />
+          </Grid>
+          <Grid sm={12} md={6} style={{padding: "12px", borderRadius: "5px"}}>
+           
+              <MapComponent />
+          
+         </Grid>
+
+         
+        </Grid>
+          
+        
+      
     );
   }
 }
