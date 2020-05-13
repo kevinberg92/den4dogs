@@ -4,13 +4,13 @@ import NewDen from "./NewDen.component";
 import { Container } from "react-bootstrap";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import './NewDenPage.css';
+import "./NewDenPage.css";
 
 export default class Users extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: 0
+      value: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -45,7 +45,7 @@ export default class Users extends React.Component {
       );
     } else {
       return (
-        <div>
+        <div id="container">
           <Container>
             <Tabs
               className="box3"
