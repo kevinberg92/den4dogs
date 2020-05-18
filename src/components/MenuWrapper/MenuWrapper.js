@@ -7,6 +7,7 @@ import PeopleIcon from "@material-ui/icons/People";
 import AddIcon from "@material-ui/icons/Add";
 import BusinessIcon from "@material-ui/icons/Business";
 import LockIcon from '@material-ui/icons/Lock';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 
 export default class MenuWrapper extends React.Component {

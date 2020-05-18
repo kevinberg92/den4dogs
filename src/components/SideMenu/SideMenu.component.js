@@ -16,6 +16,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PeopleIcon from "@material-ui/icons/People";
 import PetsIcon from "@material-ui/icons/Pets";
 import AddIcon from "@material-ui/icons/Add";
@@ -189,7 +190,7 @@ export default function MenuDrawer(props) {
         <List>
           <ListItem button key="SignOut">
             <ListItemIcon>
-              <ReplayIcon />
+              <ExitToAppIcon />
             </ListItemIcon>
             <ListItemText primary="Sign out" />
           </ListItem>
