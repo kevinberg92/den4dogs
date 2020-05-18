@@ -7,6 +7,7 @@ import { Auth0Provider } from "./react-auth0-spa";
 import config from "./auth_config.json";
 import history from "./utils/history";
 
+
 import "./index.css";
 import App from "./App";
 
@@ -18,6 +19,7 @@ const onRedirectCallback = appState => {
   );
 };
 
+
 ReactDOM.render(
   <Auth0Provider
     domain={config.domain}
@@ -25,9 +27,11 @@ ReactDOM.render(
     redirect_uri={window.location.origin}
     onRedirectCallback={onRedirectCallback}
   >
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    
   </Auth0Provider>,
   document.getElementById("root")
 );

@@ -2,10 +2,7 @@ import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from "leaflet";
 import { css } from "@emotion/core";
-import ClipLoader from "react-spinners/ClipLoader";
-import PacmanLoader from "react-spinners/PacmanLoader";
-import CircleLoader from "react-spinners/CircleLoader";
-import RotateLoader from "react-spinners/RotateLoader";
+import { DualRing } from 'react-spinners-css';
 import "./map.css"
 import 'leaflet/dist/leaflet.css';
 
@@ -45,7 +42,6 @@ export default class MapComponent extends Component {
                 locations: Array.from(data.data),
                 isLoading: false            
             });
-            console.log(this.state.locations);
         } catch (error) {
             console.log("Error fetching locations data, error: " + error);
         }
@@ -54,17 +50,12 @@ export default class MapComponent extends Component {
     render() {
         if (this.state.isLoading) {
             return (
-                <div className="sweet-loading">
-                <RotateLoader
-                    css={override}
-                    size={150}
-                    color={"#123abc"}
-                    loading={this.state.isLoading}
-                    />
-            </div>
-        );
+                
+
+                    <DualRing color={"#EB301F"}/>
+             
+            );
         } else {
-            console.log(this.state.locations)
             return (
                 <Map center={[63.1, 16.3]} zoom={4.45}>
                     <TileLayer

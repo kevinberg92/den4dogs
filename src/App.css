@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.errorInd{
+  border: solid 2px black;
+  margin-top: 10rem;
+  height: 600px;
+  width: 600px;
+}

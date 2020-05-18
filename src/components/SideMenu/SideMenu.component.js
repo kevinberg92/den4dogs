@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -23,6 +23,7 @@ import BusinessIcon from "@material-ui/icons/Business";
 import ReplayIcon from "@material-ui/icons/Replay";
 import { Router, Route, Link } from "react-router-dom";
 import './sideMenu.css';
+import { Auth0Context } from "../../react-auth0-spa";
 
 const drawerWidth = 240;
 
@@ -87,10 +88,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function MenuDrawer() {
+export default function MenuDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+ 
   const icons = [
     <HomeIcon />,
     <PeopleIcon />,
@@ -98,29 +100,12 @@ export default function MenuDrawer() {
     <PetsIcon />,
     <AddIcon />
   ];
-  const menuItems = [
-    {
-      title: "Home",
-      route: "/",
-      icon: <HomeIcon />
-    },
-    {
-      title: "Users",
-      route: "/users",
-      icon: <PeopleIcon />
-    },
-    {
-      title: "Dens",
-      route: "/dens",
-      icon: <BusinessIcon />
-    },
-    {
-      title: "Register new",
-      route: "/newDen",
-      icon: <AddIcon />
-    }
-  ];
 
+  const user = useContext(Auth0Context);
+
+
+  
+  
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -128,6 +113,8 @@ export default function MenuDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+
 
   return (
     <div>
@@ -178,7 +165,7 @@ export default function MenuDrawer() {
             alt="React bootstrap logo"
             style={{ marginRight: "10px" }}
           />
-          <Typography variant="h6" noWrap s>
+          <Typography variant="h6" noWrap>
             Den 4 Dogs
           </Typography>
           <IconButton onClick={handleDrawerClose}>
@@ -191,7 +178,7 @@ export default function MenuDrawer() {
         </div>
         <Divider />
         <List >
-          {menuItems.map((item, index) => (
+          {props.menuItems.map((item, index) => (
             <ListItem button key={index} component={Link} to={item.route}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.title} />
@@ -211,3 +198,5 @@ export default function MenuDrawer() {
     </div>
   );
 }
+
+

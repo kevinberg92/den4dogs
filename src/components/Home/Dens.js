@@ -1,5 +1,7 @@
 import React from "react";
 import NewTable from "../tables/NewTable.component";
+import Loading from '../Loading/Loading';
+import Error from '../Error/Error';
 import Grid from '@material-ui/core/Grid';
 import { Container, Row } from "react-bootstrap";
 
@@ -8,7 +10,11 @@ export default class Dens extends React.Component {
     super(props);
 
     this.state = {
+      error: false,
       dens: null,
+      user: "",
+      authLevel: 0,
+      identifier: "",
       sessions: null,
       densLoading: true,
       sessionsLoading: true,
@@ -32,23 +38,92 @@ export default class Dens extends React.Component {
   }
 
   async componentDidMount() {
-    const urlDens = "http://localhost:3000/api/den_usage/den-detail/restricted/1";
-    const urlSessions = "http://localhost:3000/api/den_usage/detail/restricted/1";
-    const densResponse = await fetch(urlDens);
-    const densData = await densResponse.json();
-    const sessionsResponse = await fetch(urlSessions);
-    const sessionsData = await sessionsResponse.json();
+    await this.checkUser();
+    await this.getData();
+  };
+  
+  async getData(){
+    let urlDens = "";
+    let urlSessions = "";
+
+    switch (this.state.authLevel) {
+      case 1:
+        urlDens = "http://localhost:3000/api/den_usage/den-detail/restricted/1";
+        urlSessions = "http://localhost:3000/api/den_usage/detail/restricted/1";
+        break;
+
+      case 2:
+        urlDens = "http://localhost:3000/api/den_usage/den-detail/restricted/2/" + this.state.identifier;
+        urlSessions = "http://localhost:3000/api/den_usage/detail/restricted/2/" + this.state.identifier;
+        break;
+
+      case 3:
+        urlDens = "http://localhost:3000/api/den_usage/den-detail/restricted/3/" + this.state.identifier;
+        urlSessions = "http://localhost:3000/api/den_usage/detail/restricted/3/" + this.state.identifier;
+        break;
+
+      default:
+        this.setState({ error: true })
+        break;
+    };
+
+    try {
+      const densResponse = await fetch(urlDens);
+      const densData = await densResponse.json();
+      const sessionsResponse = await fetch(urlSessions);
+      const sessionsData = await sessionsResponse.json();
+      this.setState({
+        dens: densData.data,
+        densLoading: false,
+        sessions: sessionsData.data,
+        sessionsLoading: false,
+      });
+      console.log(this.state.sessions)
+      
+    } catch (error) {
+      console.log(error)
+      this.setState({ error: true });  
+    }
+  };
+
+
+
+  async checkUser() {
+    var idProp = ""
+    const response = await fetch('http://localhost:3000/api/users/access', {
+    method: 'post',
+    body: 'email=' + this.props.userName,
+    headers: { 'Content-type': 'application/x-www-form-urlencoded' }
+    })
+    const data = await response.json();
+    console.log("FETCHED DATA" + JSON.stringify(data.data[0]));
+    switch (data.data[0].auth_level) {
+    case 2:
+        this.setState({ identifier: data.data[0].country});
+        break;
+    case 3:
+        this.setState({ identifier: data.data[0].location});
+        break;
+    case 1:
+      break;
+    default:
+        this.setState({ error: true });
+        break;
+    }
     this.setState({
-      dens: densData.data,
-      densLoading: false,
-      sessions: sessionsData.data,
-      sessionsLoading: false,
+    user: data.data[0].email,
+    authLevel: data.data[0].auth_level,
     });
-    console.log(this.state.sessions)
-  }
+    console.log("EDIT ACCESS STATE: " + this.state.user)
+}
+
   render() {
     if (this.state.densLoading && this.state.sessionsLoading) {
-      return <div>Loading....</div>;
+      return <Loading />;
+    } else if (this.state.error == true) {
+      return (
+        <Error />
+      );
     }
     return (
       <Grid display="flex" container spacing={3} style={{
