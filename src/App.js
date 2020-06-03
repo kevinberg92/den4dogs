@@ -45,10 +45,7 @@ const App = () => {
     }
   } 
 
-  /**
-   * 
-   * 
-   * 
+  
    if (error == true) {
      console.log(user)
      return (
@@ -56,31 +53,31 @@ const App = () => {
          <Error />
        </div>
      );
+   } else {
+     return (
+       <div className="App">
+           <React.Fragment>
+             <Router history={history}>
+               <MenuWrapper userName={loggedUser} />
+               <Layout>
+                 <Switch>
+                   <Route exact path="/" render={(props) => <Home {...props} userName={loggedUser} />}/>
+                   <PrivateRoute path="/dens" render={(props) => <Dens {...props} userName={loggedUser} />}/>
+                   <PrivateRoute path="/access" render={(props) => <EditAccess {...props} userName={loggedUser} />}/>
+                   <PrivateRoute path="/usage" component={Usage} />
+                   <PrivateRoute path="/profile" component={Profile} />
+                   <PrivateRoute path="/users" render={(props) => <Users {...props} userName={loggedUser} />} />
+                   <PrivateRoute path="/newDen" render={(props) => <NewDenForm {...props} userName={loggedUser} />}/>
+                   <Route component={NoMatch} />
+                 </Switch>
+               </Layout>
+             </Router>
+           </React.Fragment>
+       </div>
+     );
+
    }
-   * 
-   * 
-   */
-      return (
-        <div className="App">
-            <React.Fragment>
-              <Router history={history}>
-                <MenuWrapper userName={loggedUser} />
-                <Layout>
-                  <Switch>
-                    <Route exact path="/" render={(props) => <Home {...props} userName={loggedUser} />}/>
-                    <PrivateRoute path="/dens" render={(props) => <Dens {...props} userName={loggedUser} />}/>
-                    <PrivateRoute path="/access" render={(props) => <EditAccess {...props} userName={loggedUser} />}/>
-                    <PrivateRoute path="/usage" component={Usage} />
-                    <PrivateRoute path="/profile" component={Profile} />
-                    <PrivateRoute path="/users" render={(props) => <Users {...props} userName={loggedUser} />} />
-                    <PrivateRoute path="/newDen" render={(props) => <NewDenForm {...props} userName={loggedUser} />}/>
-                    <Route component={NoMatch} />
-                  </Switch>
-                </Layout>
-              </Router>
-            </React.Fragment>
-        </div>
-      );
+   
     
   
   
