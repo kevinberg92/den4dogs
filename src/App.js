@@ -14,7 +14,10 @@ import EditAccess from "./components/EditAccess/EditAccess";
 import history from "./utils/history";
 import MenuWrapper from "./components/MenuWrapper/MenuWrapper";
 import Loading from "./components/Loading/Loading";
+import Error from "./components/Error/Error";
 import { Auth0Context } from "./react-auth0-spa";
+
+import { useAuth0 } from "./react-auth0-spa";
 
 import "./App.css";
 
@@ -22,8 +25,8 @@ const App = () => {
   const user = useContext(Auth0Context);
   const [loggedUser, setLoggedUser] = useState("placeholder");
   const [userIsLoading, setUserIsLoading] = useState(true);
-  const [error, setError] = useState(false);
-
+  const [error, setError] = useState(true);
+  const { handleDirectCallback, loginWithRedirect, logout } = useAuth0();
   const validateEmail = (email) => {
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
@@ -31,51 +34,59 @@ const App = () => {
     
 
   if (user.isAuthenticated && !user.loading && userIsLoading) {
-    console.log(user)
+    console.log("passed" + user)
     if (validateEmail(user.user.email)) {
       setLoggedUser(user.user.email);
       setUserIsLoading(false);
+      setError(false);
     } else {
       console.log("NOT A VALID EMAIL");
       setError(true)
     }
   } 
-  if (!userIsLoading) {
-    return (
-      <div className="App">
-          <React.Fragment>
-            <Router history={history}>
-              <MenuWrapper userName={loggedUser} />
-              <Layout>
-                <Switch>
-                  <Route exact path="/" render={(props) => <Home {...props} userName={loggedUser} />}/>
-                  <PrivateRoute path="/dens" render={(props) => <Dens {...props} userName={loggedUser} />}/>
-                  <PrivateRoute path="/access" render={(props) => <EditAccess {...props} userName={loggedUser} />}/>
-                  <PrivateRoute path="/usage" component={Usage} />
-                  <PrivateRoute path="/profile" component={Profile} />
-                  <PrivateRoute path="/users" render={(props) => <Users {...props} userName={loggedUser} />} />
-                  <PrivateRoute path="/newDen" component={NewDenForm} />
-                  <Route component={NoMatch} />
-                </Switch>
-              </Layout>
-            </Router>
-          </React.Fragment>
-      </div>
-    );
-    
-  }
-   else {
-    return (
-      <div className="App">
-        <Loading />
-      </div>
-    );
-  }
-    
-     
-  
-  
 
+  /**
+   * 
+   * 
+   * 
+   if (error == true) {
+     console.log(user)
+     return (
+       <div className="App">
+         <Error />
+       </div>
+     );
+   }
+   * 
+   * 
+   */
+      return (
+        <div className="App">
+            <React.Fragment>
+              <Router history={history}>
+                <MenuWrapper userName={loggedUser} />
+                <Layout>
+                  <Switch>
+                    <Route exact path="/" render={(props) => <Home {...props} userName={loggedUser} />}/>
+                    <PrivateRoute path="/dens" render={(props) => <Dens {...props} userName={loggedUser} />}/>
+                    <PrivateRoute path="/access" render={(props) => <EditAccess {...props} userName={loggedUser} />}/>
+                    <PrivateRoute path="/usage" component={Usage} />
+                    <PrivateRoute path="/profile" component={Profile} />
+                    <PrivateRoute path="/users" render={(props) => <Users {...props} userName={loggedUser} />} />
+                    <PrivateRoute path="/newDen" render={(props) => <NewDenForm {...props} userName={loggedUser} />}/>
+                    <Route component={NoMatch} />
+                  </Switch>
+                </Layout>
+              </Router>
+            </React.Fragment>
+        </div>
+      );
+    
+  
+  
+    
+  
+  
   }
 
 

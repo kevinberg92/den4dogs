@@ -21,12 +21,27 @@ class NewDen2 extends Component {
 
   async componentDidMount() {
     const url = "http://localhost:3000/api/dens/locations";
+    const level2Data = [];
     const response = await fetch(url);
     const data = await response.json();
-    this.setState({
-      idInfo: Array.from(data.data),
-      loading: false
-    });
+
+    if (this.props.authLevel === 2) {
+      data.data.forEach(location => {
+        if (location.country === this.props.identifier) {
+          level2Data.push(location);
+        };
+      });
+      this.setState({
+        idInfo: level2Data,
+        loading: false
+      });  
+      console.log(level2Data)
+    } else {
+      this.setState({
+        idInfo: Array.from(data.data),
+        loading: false
+      });
+    };
   }
 
   handleChange(event) {
@@ -73,7 +88,7 @@ class NewDen2 extends Component {
         <Form.Group controlId="idControl">
           <Form.Label>Location ID</Form.Label>
           <Form.Control name="id" as="select" onChange={this.handleChange}>
-            <option>Velg sted</option>
+            <option hidden>Choose location</option>
             {this.state.idInfo.map((option, index) => {
               return (
                 <option key={index} value={option.ID}>

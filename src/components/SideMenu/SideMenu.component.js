@@ -21,10 +21,12 @@ import PeopleIcon from "@material-ui/icons/People";
 import PetsIcon from "@material-ui/icons/Pets";
 import AddIcon from "@material-ui/icons/Add";
 import BusinessIcon from "@material-ui/icons/Business";
-import ReplayIcon from "@material-ui/icons/Replay";
-import { Router, Route, Link } from "react-router-dom";
+import LockIcon from '@material-ui/icons/Lock';
+import { Link } from "react-router-dom";
 import './sideMenu.css';
 import { Auth0Context } from "../../react-auth0-spa";
+
+import { useAuth0 } from "../../react-auth0-spa";
 
 const drawerWidth = 240;
 
@@ -93,6 +95,7 @@ export default function MenuDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const { logout } = useAuth0();
  
   const icons = [
     <HomeIcon />,
@@ -102,7 +105,12 @@ export default function MenuDrawer(props) {
     <AddIcon />
   ];
 
-  const user = useContext(Auth0Context);
+  const logOut = () =>
+  logout({
+    returnTo: window.location.origin
+  });
+
+  
 
 
   
@@ -187,8 +195,19 @@ export default function MenuDrawer(props) {
           ))}
         </List>
         <Divider />
+            {props.authLevel === 1 || props.authLevel === 2
+            ? (<List>
+            <ListItem button component={Link} to="/access" key="EditAccess">
+              <ListItemIcon>
+                <LockIcon />
+              </ListItemIcon>
+              <ListItemText primary="Edit access" />
+            </ListItem>
+          </List>)
+          : (<div></div>)}
+
         <List>
-          <ListItem button key="SignOut">
+          <ListItem button onClick={() => logOut()} key="SignOut">
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>

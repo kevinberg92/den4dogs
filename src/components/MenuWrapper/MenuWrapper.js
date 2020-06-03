@@ -6,7 +6,6 @@ import HomeIcon from "@material-ui/icons/Home";
 import PeopleIcon from "@material-ui/icons/People";
 import AddIcon from "@material-ui/icons/Add";
 import BusinessIcon from "@material-ui/icons/Business";
-import LockIcon from '@material-ui/icons/Lock';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 
@@ -66,11 +65,6 @@ export default class MenuWrapper extends React.Component {
             route: "/newDen",
             icon: <AddIcon />
           };
-        const editAccess = {
-          title: "Edit access",
-          route: "/access",
-          icon: <LockIcon />
-        }
         const users = {
           title: "Users",
           route: "/users",
@@ -91,11 +85,11 @@ export default class MenuWrapper extends React.Component {
           ];
 
         if (this.state.authLevel == 2 || this.state.authLevel == 1) {
-          menuItems.push(editAccess);
+          
           if (this.state.authLevel == 1) {
             menuItems.push(users);
-            menuItems.push(newDen);
           };
+          menuItems.push(newDen);
           menuItems.push(dens);
         }
 
@@ -121,7 +115,7 @@ export default class MenuWrapper extends React.Component {
         }
       
       return (
-        <MenuDrawer menuItems={this.state.menuItems}/>
+        <MenuDrawer menuItems={this.state.menuItems} authLevel={this.state.authLevel}/>
       );
     }
   }

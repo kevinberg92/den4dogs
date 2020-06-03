@@ -126,20 +126,28 @@ class NewDen extends Component {
         <Form.Group controlId="hideControl">
           <Form.Label>Show/Hide</Form.Label>
           <Form.Control name="hide" as="select" onChange={this.handleChange}>
-            <option>Choose to hide or show</option>
+            <option hidden>Choose to hide or show</option>
             <option>0</option>
             <option>1</option>
           </Form.Control>
         </Form.Group>
         <Form.Group controlId="countryControl">
           <Form.Label>Country</Form.Label>
-          <Form.Control name="country" as="select" onChange={this.handleChange}>
-            <option>Choose country</option>
-            <option>Norway</option>
-            <option>Denmark</option>
-            <option>Sweden</option>
-            <option>Finland</option>
-          </Form.Control>
+          
+            {this.props.authLevel === 2 ?
+            (<Form.Control name="country" as="select" onChange={this.handleChange}>
+            <option hidden>Choose country</option>
+            <option>{this.props.identifier}</option>
+            </Form.Control>) :
+            (<Form.Control name="country" as="select" onChange={this.handleChange}>
+              <option hidden>Choose country</option>
+              <option>Norway</option>
+              <option>Denmark</option>
+              <option>Sweden</option>
+              <option>Finland</option>
+              </Form.Control>)}
+            
+          
         </Form.Group>
         <Form.Group controlId="currencyControl">
           <Form.Label>Currency</Form.Label>
@@ -148,7 +156,7 @@ class NewDen extends Component {
             as="select"
             onChange={this.handleChange}
           >
-            <option>Choose currency</option>
+            <option hidden>Choose currency</option>
             <option>NOK</option>
             <option>SEK</option>
             <option>DKK</option>
