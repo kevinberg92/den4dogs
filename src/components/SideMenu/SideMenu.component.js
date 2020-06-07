@@ -107,7 +107,7 @@ export default function MenuDrawer(props) {
 
   const logOut = () =>
   logout({
-    returnTo: window.location.origin
+    returnTo: "http://localhost:3001/logout"
   });
 
   
