@@ -63,7 +63,7 @@ const App = () => {
                <Layout>
                  <Switch>
                    <Route exact path="/" render={(props) => <Home {...props} userName={loggedUser} />}/>
-                   <PrivateRoute path="logout" component={LogOut}/>
+                   <PrivateRoute path="/logout" component={LogOut}/>
                    <PrivateRoute path="/dens" render={(props) => <Dens {...props} userName={loggedUser} />}/>
                    <PrivateRoute path="/access" render={(props) => <EditAccess {...props} userName={loggedUser} />}/>
                    <PrivateRoute path="/usage" component={Usage} />
