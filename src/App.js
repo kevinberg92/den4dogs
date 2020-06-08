@@ -24,7 +24,7 @@ import "./App.css";
 
 const App = () => {
   const user = useContext(Auth0Context);
-  const [loggedUser, setLoggedUser] = useState("");
+  const [loggedUser, setLoggedUser] = useState("kaischieren@hotmail.com");
   const [userIsLoading, setUserIsLoading] = useState(true);
   const [error, setError] = useState(true);
   const { handleDirectCallback, loginWithRedirect, logout } = useAuth0();
@@ -35,19 +35,22 @@ const App = () => {
 
 
   
+  /**
+   * 
+   if (user.isAuthenticated && !user.loading && userIsLoading) {
+     console.log("passed" + user)
+     if (validateEmail(user.user.email)) {
+       setLoggedUser(user.user.email);
+       setUserIsLoading(false);
+       setError(false);
+     } else {
+       console.log("NOT A VALID EMAIL");
+       setError(true)
+     }
+   } 
+   * 
+   */
   
-  
-  if (user.isAuthenticated && !user.loading && userIsLoading) {
-    console.log("passed" + user)
-    if (validateEmail(user.user.email)) {
-      setLoggedUser(user.user.email);
-      setUserIsLoading(false);
-      setError(false);
-    } else {
-      console.log("NOT A VALID EMAIL");
-      setError(true)
-    }
-  } 
  
   
    
@@ -56,9 +59,7 @@ const App = () => {
            <React.Fragment>
              <Router history={history}>
              <MenuWrapper userName={loggedUser} />
-                  {error == true
-                    ? (<Error />)
-                  : (<div>
+                  
                     <Layout>
                       <Switch>
                         <Route exact path="/" render={(props) => <Home {...props} userName={loggedUser} />}/>
@@ -71,7 +72,7 @@ const App = () => {
                         <PrivateRoute path="/newDen" render={(props) => <NewDenForm {...props} userName={loggedUser} />}/>
                         <Route component={NoMatch} />
                       </Switch>
-                    </Layout></div>)}
+                    </Layout>
                
              </Router>
            </React.Fragment>
