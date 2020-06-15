@@ -12,7 +12,7 @@ class NewDen2 extends Component {
       serial: "",
       cage_nr: "",
       loading: true,
-      idInfo: []
+      idInfo: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -26,22 +26,21 @@ class NewDen2 extends Component {
     const data = await response.json();
 
     if (this.props.authLevel === 2) {
-      data.data.forEach(location => {
+      data.data.forEach((location) => {
         if (location.country === this.props.identifier) {
           level2Data.push(location);
-        };
+        }
       });
       this.setState({
         idInfo: level2Data,
-        loading: false
-      });  
-      console.log(level2Data)
+        loading: false,
+      });
     } else {
       this.setState({
         idInfo: Array.from(data.data),
-        loading: false
+        loading: false,
       });
-    };
+    }
   }
 
   handleChange(event) {
@@ -54,27 +53,23 @@ class NewDen2 extends Component {
     const newDenInfo = {
       id: this.state.id,
       serial: this.state.serial,
-      cage_nr: this.state.cage_nr
+      cage_nr: this.state.cage_nr,
     };
-
-    console.log(newDenInfo);
 
     axios
       .post(url, newDenInfo)
-      .then(response => {
-        console.log(response.data);
+      .then((response) => {
         this.setState({
           id: "",
           serial: "",
-          cage_nr: ""
+          cage_nr: "",
         });
         toast.success("New location registered!");
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           toast.error("Error registrering new location");
         }
-        console.log(error);
       });
 
     event.preventDefault();

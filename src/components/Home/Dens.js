@@ -1,9 +1,8 @@
 import React from "react";
 import NewTable from "../tables/NewTable.component";
-import Loading from '../Loading/Loading';
-import Error from '../Error/Error';
-import Grid from '@material-ui/core/Grid';
-import { Container, Row } from "react-bootstrap";
+import Loading from "../Loading/Loading";
+import Error from "../Error/Error";
+import Grid from "@material-ui/core/Grid";
 
 export default class Dens extends React.Component {
   constructor(props) {
@@ -26,23 +25,28 @@ export default class Dens extends React.Component {
         { title: "Usage count", field: "Usage_count" },
         { title: "Usage last 24h", field: "Usage_last_24h" },
         { title: "Average daily last 7d(min)", field: "Average_daily_last_7d" },
-        { title: "Average daily last 30d(min)", field: "Average_daily_last_30d" },],
+        {
+          title: "Average daily last 30d(min)",
+          field: "Average_daily_last_30d",
+        },
+      ],
       sessionColumns: [
         { title: "Date", field: "date" },
         { title: "Den serial", field: "Serial" },
         { title: "Location", field: "Location_name" },
         { title: "Phone", field: "phone_nr" },
         { title: "Dog", field: "name" },
-        { title: "Duration", field: "session_time" }]
+        { title: "Duration", field: "session_time" },
+      ],
     };
   }
 
   async componentDidMount() {
     await this.checkUser();
     await this.getData();
-  };
-  
-  async getData(){
+  }
+
+  async getData() {
     let urlDens = "";
     let urlSessions = "";
 
@@ -53,19 +57,27 @@ export default class Dens extends React.Component {
         break;
 
       case 2:
-        urlDens = "http://localhost:3000/api/den_usage/den-detail/restricted/2/" + this.state.identifier;
-        urlSessions = "http://localhost:3000/api/den_usage/detail/restricted/2/" + this.state.identifier;
+        urlDens =
+          "http://localhost:3000/api/den_usage/den-detail/restricted/2/" +
+          this.state.identifier;
+        urlSessions =
+          "http://localhost:3000/api/den_usage/detail/restricted/2/" +
+          this.state.identifier;
         break;
 
       case 3:
-        urlDens = "http://localhost:3000/api/den_usage/den-detail/restricted/3/" + this.state.identifier;
-        urlSessions = "http://localhost:3000/api/den_usage/detail/restricted/3/" + this.state.identifier;
+        urlDens =
+          "http://localhost:3000/api/den_usage/den-detail/restricted/3/" +
+          this.state.identifier;
+        urlSessions =
+          "http://localhost:3000/api/den_usage/detail/restricted/3/" +
+          this.state.identifier;
         break;
 
       default:
-        this.setState({ error: true })
+        this.setState({ error: true });
         break;
-    };
+    }
 
     try {
       const densResponse = await fetch(urlDens);
@@ -78,68 +90,70 @@ export default class Dens extends React.Component {
         sessions: sessionsData.data,
         sessionsLoading: false,
       });
-      console.log(this.state.sessions)
-      
     } catch (error) {
-      console.log(error)
-      this.setState({ error: true });  
+      this.setState({ error: true });
     }
-  };
-
-
+  }
 
   async checkUser() {
-    var idProp = ""
-    const response = await fetch('http://localhost:3000/api/users/access', {
-    method: 'post',
-    body: 'email=' + this.props.userName,
-    headers: { 'Content-type': 'application/x-www-form-urlencoded' }
-    })
+    var idProp = "";
+    const response = await fetch("http://localhost:3000/api/users/access", {
+      method: "post",
+      body: "email=" + this.props.userName,
+      headers: { "Content-type": "application/x-www-form-urlencoded" },
+    });
     const data = await response.json();
-    console.log("FETCHED DATA" + JSON.stringify(data.data[0]));
     switch (data.data[0].auth_level) {
-    case 2:
-        this.setState({ identifier: data.data[0].country});
+      case 2:
+        this.setState({ identifier: data.data[0].country });
         break;
-    case 3:
-        this.setState({ identifier: data.data[0].location});
+      case 3:
+        this.setState({ identifier: data.data[0].location });
         break;
-    case 1:
-      break;
-    default:
+      case 1:
+        break;
+      default:
         this.setState({ error: true });
         break;
     }
     this.setState({
-    user: data.data[0].email,
-    authLevel: data.data[0].auth_level,
+      user: data.data[0].email,
+      authLevel: data.data[0].auth_level,
     });
-    console.log("EDIT ACCESS STATE: " + this.state.user)
-}
+  }
 
   render() {
     if (this.state.densLoading && this.state.sessionsLoading) {
       return <Loading />;
-    } else if (this.state.error == true) {
-      return (
-        <Error />
-      );
+    } else if (this.state.error === true) {
+      return <Error />;
     }
     return (
-      <Grid display="flex" container spacing={3} style={{
-        marginTop: "6rem",
-        width: "100%",
-        marginLeft: "2rem",
-        marginRight: "1rem",
-        width: "100%"
-      }}>
+      <Grid
+        display="flex"
+        container
+        spacing={3}
+        style={{
+          marginTop: "6rem",
+          width: "100%",
+          marginLeft: "2rem",
+          marginRight: "1rem",
+        }}
+      >
         <Grid item xs={12}>
-          <NewTable columns={this.state.denColumns} dens={this.state.dens} title={"Dens"} />
+          <NewTable
+            columns={this.state.denColumns}
+            dens={this.state.dens}
+            title={"Dens"}
+          />
         </Grid>
         <Grid item xs={12}>
-          <NewTable columns={this.state.sessionColumns} dens={this.state.sessions} title={"Sessions"} />
+          <NewTable
+            columns={this.state.sessionColumns}
+            dens={this.state.sessions}
+            title={"Sessions"}
+          />
         </Grid>
-
       </Grid>
     );
   }

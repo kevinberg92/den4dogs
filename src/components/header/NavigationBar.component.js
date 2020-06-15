@@ -4,8 +4,6 @@ import styled from "styled-components";
 
 import { useAuth0 } from "../../react-auth0-spa";
 
-import { Link } from "react-router-dom";
-
 const Styles = styled.div`
   .navbar {
     background-color: #efefef;

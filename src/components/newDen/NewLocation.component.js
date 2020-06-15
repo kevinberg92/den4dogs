@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-class NewDen extends Component {
+class NewLocation extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,7 +43,7 @@ class NewDen extends Component {
   handleSubmit(event) {
     const url = "http://localhost:3000/api/dens/location";
 
-    const newDenInfo = {
+    const NewLocationInfo = {
       name: this.state.name,
       hide: this.state.hide,
       country: this.state.country,
@@ -69,7 +69,7 @@ class NewDen extends Component {
     };
 
     axios
-      .post(url, newDenInfo)
+      .post(url, NewLocationInfo)
       .then((response) => {
         this.setState({
           name: "",
@@ -356,4 +356,4 @@ class NewDen extends Component {
     );
   }
 }
-export default NewDen;
+export default NewLocation;

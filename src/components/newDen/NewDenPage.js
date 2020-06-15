@@ -14,50 +14,43 @@ export default class Users extends React.Component {
       value: 0,
       error: false,
       identifier: null,
-      authLevel: null
+      authLevel: null,
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
-  
-  async componentDidMount(){
-    await this.checkUser()
+
+  async componentDidMount() {
+    await this.checkUser();
   }
-  async checkUser(){
-    var idProp = ""
+  async checkUser() {
+    var idProp = "";
     try {
-      const response = await fetch('http://localhost:3000/api/users/access', {
-        method: 'post',
-        body: 'email=' + this.props.userName,
-        headers: { 'Content-type': 'application/x-www-form-urlencoded' }
-      })
+      const response = await fetch("http://localhost:3000/api/users/access", {
+        method: "post",
+        body: "email=" + this.props.userName,
+        headers: { "Content-type": "application/x-www-form-urlencoded" },
+      });
       const data = await response.json();
-      console.log("NEW DEN      FETCHED DATA" + JSON.stringify(data.data[0]));
       switch (data.data[0].auth_level) {
         case 2:
           this.setState({ identifier: data.data[0].country });
           break;
         case 3:
           this.setState({ identifier: data.data[0].location });
-      
+          break;
         default:
-          idProp = ""
+          idProp = "";
           break;
       }
       this.setState({
         user: data.data[0].email,
         authLevel: data.data[0].auth_level,
       });
-      
     } catch (error) {
-      console.log(error)
-      this.setState({error: true});
+      this.setState({ error: true });
     }
-
-    console.log("Identifier" + this.state.identifier);
   }
-
-
 
   handleChange(event) {
     if (this.state.value === 0) {
@@ -68,11 +61,8 @@ export default class Users extends React.Component {
   }
   render() {
     if (this.state.error === true) {
-      return (
-        <Error />
-      );
-    }
-    else if (this.state.value === 0) {
+      return <Error />;
+    } else if (this.state.value === 0) {
       return (
         <div id="container">
           <Container>
@@ -87,7 +77,10 @@ export default class Users extends React.Component {
               <Tab label="Register den location" />
               <Tab label="Add new den" />
             </Tabs>
-            <NewDen authLevel={this.state.authLevel} identifier={this.state.identifier}/>
+            <NewDen
+              authLevel={this.state.authLevel}
+              identifier={this.state.identifier}
+            />
           </Container>
         </div>
       );
@@ -106,7 +99,10 @@ export default class Users extends React.Component {
               <Tab label="Register den location" />
               <Tab label="Add new den" />
             </Tabs>
-            <NewDen2  authLevel={this.state.authLevel} identifier={this.state.identifier}/>
+            <NewDen2
+              authLevel={this.state.authLevel}
+              identifier={this.state.identifier}
+            />
           </Container>
         </div>
       );

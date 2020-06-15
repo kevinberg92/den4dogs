@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -16,79 +16,78 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import PeopleIcon from "@material-ui/icons/People";
 import PetsIcon from "@material-ui/icons/Pets";
 import AddIcon from "@material-ui/icons/Add";
 import BusinessIcon from "@material-ui/icons/Business";
-import LockIcon from '@material-ui/icons/Lock';
+import LockIcon from "@material-ui/icons/Lock";
 import { Link } from "react-router-dom";
-import './sideMenu.css';
-import { Auth0Context } from "../../react-auth0-spa";
+import "./sideMenu.css";
 
 import { useAuth0 } from "../../react-auth0-spa";
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex"
+    display: "flex",
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   menuButton: {
-    marginRight: 36
+    marginRight: 36,
   },
   hide: {
-    display: "none"
+    display: "none",
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    whiteSpace: "nowrap"
+    whiteSpace: "nowrap",
   },
   drawerOpen: {
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   drawerClose: {
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9) + 1
-    }
+      width: theme.spacing(9) + 1,
+    },
   },
   toolbar: {
     display: "flex",
     alignItems: "center",
     justifyContent: "flex-end",
     padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar
+    ...theme.mixins.toolbar,
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3)
-  }
+    padding: theme.spacing(3),
+  },
 }));
 
 export default function MenuDrawer(props) {
@@ -96,25 +95,20 @@ export default function MenuDrawer(props) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const { logout } = useAuth0();
- 
+
   const icons = [
     <HomeIcon />,
     <PeopleIcon />,
     <BusinessIcon />,
     <PetsIcon />,
-    <AddIcon />
+    <AddIcon />,
   ];
 
   const logOut = () =>
-  logout({
-    returnTo: "http://localhost:3001/"
-  });
+    logout({
+      returnTo: "http://localhost:3001/",
+    });
 
-  
-
-
-  
-  
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -122,8 +116,6 @@ export default function MenuDrawer(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-
 
   return (
     <div>
@@ -133,7 +125,7 @@ export default function MenuDrawer(props) {
         color="primary"
         position="fixed"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open
+          [classes.appBarShift]: open,
         })}
       >
         <Toolbar>
@@ -143,7 +135,7 @@ export default function MenuDrawer(props) {
             onClick={handleDrawerOpen}
             edge="start"
             className={clsx(classes.menuButton, {
-              [classes.hide]: open
+              [classes.hide]: open,
             })}
           >
             <MenuIcon />
@@ -153,17 +145,17 @@ export default function MenuDrawer(props) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer 
+      <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open
+          [classes.drawerClose]: !open,
         })}
         classes={{
           paper: clsx({
             [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open
-          })
+            [classes.drawerClose]: !open,
+          }),
         }}
       >
         <div className={classes.toolbar}>
@@ -186,7 +178,7 @@ export default function MenuDrawer(props) {
           </IconButton>
         </div>
         <Divider />
-        <List >
+        <List>
           {props.menuItems.map((item, index) => (
             <ListItem button key={index} component={Link} to={item.route}>
               <ListItemIcon>{item.icon}</ListItemIcon>
@@ -195,16 +187,18 @@ export default function MenuDrawer(props) {
           ))}
         </List>
         <Divider />
-            {props.authLevel === 1 || props.authLevel === 2
-            ? (<List>
+        {props.authLevel === 1 || props.authLevel === 2 ? (
+          <List>
             <ListItem button component={Link} to="/access" key="EditAccess">
               <ListItemIcon>
                 <LockIcon />
               </ListItemIcon>
               <ListItemText primary="Edit access" />
             </ListItem>
-          </List>)
-          : (<div></div>)}
+          </List>
+        ) : (
+          <div></div>
+        )}
 
         <List>
           <ListItem button onClick={() => logOut()} key="SignOut">
@@ -218,5 +212,3 @@ export default function MenuDrawer(props) {
     </div>
   );
 }
-
-
