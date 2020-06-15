@@ -161,18 +161,10 @@ export default class Home extends React.Component {
 
           <Grid item sm={12} md={6}>
             <NewTable columns={this.state.tableColumns} dens={this.state.densLeast} title={"Least used dens"} />  
-          </Grid>
-
-          <Grid item sm={12} md={6}>
-            <NewTable columns={this.state.tableColumns} dens={this.state.oneHour} title={"Use of one hour"} />
-          </Grid>
-          <Grid item sm={12} md={6} style={{padding: "12px", borderRadius: "5px"}}>
-           
+          </Grid>   
+          <Grid item sm={12} md={12} style={{padding: "12px", borderRadius: "5px", height: "30rem"}}> 
               <MapComponent />
-          
          </Grid>
-
-         
         </Grid>
           
         
